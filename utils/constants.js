@@ -19,6 +19,25 @@ const initialTodos = [
   },
 ];
 
+const config = {
+  addTodoButtonSelector: ".button_action_add",
+  addTodoPopupSelector: "#add-todo-popup",
+  addTodoFormSelector: ".popup__form",
+  addTodoCloseBtnSelector: ".popup__close",
+  todoTemplateSelector: "#todo-template",
+  todosListSelector: ".todos__list",
+  todoTemplateSelector: "#todo-template",
+  todoTemplateSelectors: {
+    todoElementelector: ".todo",
+    todoDeleteBtnSelector: ".todo__delete-btn",
+    todoNameElSelector: ".todo__name",
+    todoCheckboxElSelector: ".todo__completed",
+    todoLabelSelector: ".todo__label",
+    todoDateSelector: ".todo__date",
+  },
+  modalVisibleClass: "popup_visible",
+};
+
 const validationConfig = {
   formSelector: ".popup__form",
   inputSelector: ".popup__input",
@@ -28,4 +47,4 @@ const validationConfig = {
   inactiveButtonClass: "button_disabled",
 };
 
-export { initialTodos, validationConfig };
+export { initialTodos, config, validationConfig };

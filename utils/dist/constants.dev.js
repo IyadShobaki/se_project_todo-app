@@ -3,7 +3,12 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.validationConfig = exports.initialTodos = void 0;
+exports.validationConfig = exports.config = exports.initialTodos = void 0;
+
+var _config;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var initialTodos = [{
   id: "7cec7373-681b-49d9-b065-021d61a69d03",
   name: "Read the sprint's theory",
@@ -21,6 +26,22 @@ var initialTodos = [{
   date: new Date()
 }];
 exports.initialTodos = initialTodos;
+var config = (_config = {
+  addTodoButtonSelector: ".button_action_add",
+  addTodoPopupSelector: "#add-todo-popup",
+  addTodoFormSelector: ".popup__form",
+  addTodoCloseBtnSelector: ".popup__close",
+  todoTemplateSelector: "#todo-template",
+  todosListSelector: ".todos__list"
+}, _defineProperty(_config, "todoTemplateSelector", "#todo-template"), _defineProperty(_config, "todoTemplateSelectors", {
+  todoElementelector: ".todo",
+  todoDeleteBtnSelector: ".todo__delete-btn",
+  todoNameElSelector: ".todo__name",
+  todoCheckboxElSelector: ".todo__completed",
+  todoLabelSelector: ".todo__label",
+  todoDateSelector: ".todo__date"
+}), _defineProperty(_config, "modalVisibleClass", "popup_visible"), _config);
+exports.config = config;
 var validationConfig = {
   formSelector: ".popup__form",
   inputSelector: ".popup__input",

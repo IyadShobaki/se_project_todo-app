@@ -2,50 +2,28 @@
 
 var _constants = require("../utils/constants.js");
 
-var addTodoButton = document.querySelector(".button_action_add");
-var addTodoPopup = document.querySelector("#add-todo-popup");
-var addTodoForm = addTodoPopup.querySelector(".popup__form");
-var addTodoCloseBtn = addTodoPopup.querySelector(".popup__close");
-var todoTemplate = document.querySelector("#todo-template");
-var todosList = document.querySelector(".todos__list");
+var _Todo = _interopRequireDefault(require("../components/Todo.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+var addTodoButton = document.querySelector(_constants.config.addTodoButtonSelector);
+var addTodoPopup = document.querySelector(_constants.config.addTodoPopupSelector);
+var addTodoForm = addTodoPopup.querySelector(_constants.config.addTodoFormSelector);
+var addTodoCloseBtn = addTodoPopup.querySelector(_constants.config.addTodoCloseBtnSelector);
+var todosList = document.querySelector(_constants.config.todosListSelector);
 
 var openModal = function openModal(modal) {
-  modal.classList.add("popup_visible");
+  modal.classList.add(_constants.config.modalVisibleClass);
 };
 
 var closeModal = function closeModal(modal) {
-  modal.classList.remove("popup_visible");
+  modal.classList.remove(_constants.config.modalVisibleClass);
 }; // The logic in this function should all be handled in the Todo class.
 
 
 var generateTodo = function generateTodo(data) {
-  var todoElement = todoTemplate.content.querySelector(".todo").cloneNode(true);
-  var todoNameEl = todoElement.querySelector(".todo__name");
-  var todoCheckboxEl = todoElement.querySelector(".todo__completed");
-  var todoLabel = todoElement.querySelector(".todo__label");
-  var todoDate = todoElement.querySelector(".todo__date");
-  var todoDeleteBtn = todoElement.querySelector(".todo__delete-btn");
-  todoNameEl.textContent = data.name;
-  todoCheckboxEl.checked = data.completed; // Apply id and for attributes.
-  // The id will initially be undefined for new todos.
-
-  todoCheckboxEl.id = "todo-".concat(data.id);
-  todoLabel.setAttribute("for", "todo-".concat(data.id)); // If a due date has been set, parsing this it with `new Date` will return a
-  // number. If so, we display a string version of the due date in the todo.
-
-  var dueDate = new Date(data.date);
-
-  if (!isNaN(dueDate)) {
-    todoDate.textContent = "Due: ".concat(dueDate.toLocaleString("en-US", {
-      year: "numeric",
-      month: "short",
-      day: "numeric"
-    }));
-  }
-
-  todoDeleteBtn.addEventListener("click", function () {
-    todoElement.remove();
-  });
+  var todo = new _Todo["default"](data, _constants.config.todoTemplateSelector, _constants.config.todoTemplateSelectors);
+  var todoElement = todo.getView();
   return todoElement;
 };
 
@@ -62,14 +40,26 @@ addTodoForm.addEventListener("submit", function (evt) {
 
   var date = new Date(dateInput);
   date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
+  var completed = false;
+  var id = uuidv4();
   var values = {
+    id: id,
     name: name,
+    completed: completed,
     date: date
   };
   var todo = generateTodo(values);
   todosList.append(todo);
   closeModal(addTodoPopup);
 });
+
+function uuidv4() {
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
+    var r = Math.random() * 16 | 0,
+        v = c == "x" ? r : r & 0x3 | 0x8;
+    return v.toString(16);
+  });
+}
 
 _constants.initialTodos.forEach(function (item) {
   var todo = generateTodo(item);
