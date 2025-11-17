@@ -1,5 +1,6 @@
 import { initialTodos, config, validationConfig } from "../utils/constants.js";
 import Todo from "../components/Todo.js";
+import { v4 as uuidv4 } from "https://jspm.dev/uuid";
 
 const addTodoButton = document.querySelector(config.addTodoButtonSelector);
 const addTodoPopup = document.querySelector(config.addTodoPopupSelector);
@@ -53,14 +54,6 @@ addTodoForm.addEventListener("submit", (evt) => {
   todosList.append(todo);
   closeModal(addTodoPopup);
 });
-
-function uuidv4() {
-  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
-    const r = (Math.random() * 16) | 0,
-      v = c == "x" ? r : (r & 0x3) | 0x8;
-    return v.toString(16);
-  });
-}
 
 initialTodos.forEach((item) => {
   const todo = generateTodo(item);

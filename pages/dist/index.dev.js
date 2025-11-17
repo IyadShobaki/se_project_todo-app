@@ -4,6 +4,8 @@ var _constants = require("../utils/constants.js");
 
 var _Todo = _interopRequireDefault(require("../components/Todo.js"));
 
+var _uuid = require("https://jspm.dev/uuid");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var addTodoButton = document.querySelector(_constants.config.addTodoButtonSelector);
@@ -41,7 +43,7 @@ addTodoForm.addEventListener("submit", function (evt) {
   var date = new Date(dateInput);
   date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
   var completed = false;
-  var id = uuidv4();
+  var id = (0, _uuid.v4)();
   var values = {
     id: id,
     name: name,
@@ -52,14 +54,6 @@ addTodoForm.addEventListener("submit", function (evt) {
   todosList.append(todo);
   closeModal(addTodoPopup);
 });
-
-function uuidv4() {
-  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
-    var r = Math.random() * 16 | 0,
-        v = c == "x" ? r : r & 0x3 | 0x8;
-    return v.toString(16);
-  });
-}
 
 _constants.initialTodos.forEach(function (item) {
   var todo = generateTodo(item);
