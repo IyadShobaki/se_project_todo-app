@@ -14,12 +14,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 var Todo =
 /*#__PURE__*/
 function () {
-  function Todo(data, selector, todoConfig) {
+  function Todo(data, selector, settings) {
     _classCallCheck(this, Todo);
 
     this._data = data;
     this._templateElement = document.querySelector(selector);
-    this._todoConfig = todoConfig;
+    this._settings = settings;
   }
 
   _createClass(Todo, [{
@@ -27,7 +27,7 @@ function () {
     value: function _setEventListeners() {
       var _this = this;
 
-      this._todoDeleteBtn = this._element.querySelector(this._todoConfig.todoDeleteBtnSelector);
+      this._todoDeleteBtn = this._element.querySelector(this._settings.todoDeleteBtnSelector);
 
       this._todoDeleteBtn.addEventListener("click", function () {
         _this._element.remove();
@@ -40,15 +40,15 @@ function () {
   }, {
     key: "_getTemplate",
     value: function _getTemplate() {
-      var todoElement = this._templateElement.content.querySelector(this._todoConfig.todoElementelector).cloneNode(true);
+      var todoElement = this._templateElement.content.querySelector(this._settings.todoElementelector).cloneNode(true);
 
       return todoElement;
     }
   }, {
     key: "_generateCheckboxEl",
     value: function _generateCheckboxEl() {
-      this._todoCheckboxEl = this._element.querySelector(this._todoConfig.todoCheckboxElSelector);
-      this._todoLabel = this._element.querySelector(this._todoConfig.todoLabelSelector);
+      this._todoCheckboxEl = this._element.querySelector(this._settings.todoCheckboxElSelector);
+      this._todoLabel = this._element.querySelector(this._settings.todoLabelSelector);
       this._todoCheckboxEl.checked = this._data.completed;
       this._todoCheckboxEl.id = "todo-".concat(this._data.id);
 
@@ -58,8 +58,8 @@ function () {
     key: "getView",
     value: function getView() {
       this._element = this._getTemplate();
-      this._todoNameEl = this._element.querySelector(this._todoConfig.todoNameElSelector);
-      this._todoDate = this._element.querySelector(this._todoConfig.todoDateSelector);
+      this._todoNameEl = this._element.querySelector(this._settings.todoNameElSelector);
+      this._todoDate = this._element.querySelector(this._settings.todoDateSelector);
       this._todoNameEl.textContent = this._data.name;
       this._todoDate.textContent = this._getFromattedDate(this._data.date);
 

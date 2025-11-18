@@ -19,7 +19,7 @@ const initialTodos = [
   },
 ];
 
-const config = {
+const todoConfig = {
   addTodoButtonSelector: ".button_action_add",
   addTodoPopupSelector: "#add-todo-popup",
   addTodoFormSelector: ".popup__form",
@@ -47,4 +47,4 @@ const validationConfig = {
   inactiveButtonClass: "button_disabled",
 };
 
-export { initialTodos, config, validationConfig };
+export { initialTodos, todoConfig, validationConfig };

@@ -1,29 +1,34 @@
-import { initialTodos, config, validationConfig } from "../utils/constants.js";
-import Todo from "../components/Todo.js";
 import { v4 as uuidv4 } from "https://jspm.dev/uuid";
+import {
+  initialTodos,
+  todoConfig,
+  validationConfig,
+} from "../utils/constants.js";
+import Todo from "../components/Todo.js";
+import FormValidator from "../components/FormValidator.js";
 
-const addTodoButton = document.querySelector(config.addTodoButtonSelector);
-const addTodoPopup = document.querySelector(config.addTodoPopupSelector);
-const addTodoForm = addTodoPopup.querySelector(config.addTodoFormSelector);
+const addTodoButton = document.querySelector(todoConfig.addTodoButtonSelector);
+const addTodoPopup = document.querySelector(todoConfig.addTodoPopupSelector);
+const addTodoForm = addTodoPopup.querySelector(todoConfig.addTodoFormSelector);
 const addTodoCloseBtn = addTodoPopup.querySelector(
-  config.addTodoCloseBtnSelector
+  todoConfig.addTodoCloseBtnSelector
 );
-const todosList = document.querySelector(config.todosListSelector);
+const todosList = document.querySelector(todoConfig.todosListSelector);
 
 const openModal = (modal) => {
-  modal.classList.add(config.modalVisibleClass);
+  modal.classList.add(todoConfig.modalVisibleClass);
 };
 
 const closeModal = (modal) => {
-  modal.classList.remove(config.modalVisibleClass);
+  modal.classList.remove(todoConfig.modalVisibleClass);
 };
 
 // The logic in this function should all be handled in the Todo class.
 const generateTodo = (data) => {
   const todo = new Todo(
     data,
-    config.todoTemplateSelector,
-    config.todoTemplateSelectors
+    todoConfig.todoTemplateSelector,
+    todoConfig.todoTemplateSelectors
   );
   const todoElement = todo.getView();
   return todoElement;
@@ -59,3 +64,6 @@ initialTodos.forEach((item) => {
   const todo = generateTodo(item);
   todosList.append(todo);
 });
+
+const newTodoValidator = new FormValidator(validationConfig, addTodoForm);
+newTodoValidator.enableValidation();

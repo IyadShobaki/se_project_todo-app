@@ -3,9 +3,9 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.validationConfig = exports.config = exports.initialTodos = void 0;
+exports.validationConfig = exports.todoConfig = exports.initialTodos = void 0;
 
-var _config;
+var _todoConfig;
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -26,22 +26,22 @@ var initialTodos = [{
   date: new Date()
 }];
 exports.initialTodos = initialTodos;
-var config = (_config = {
+var todoConfig = (_todoConfig = {
   addTodoButtonSelector: ".button_action_add",
   addTodoPopupSelector: "#add-todo-popup",
   addTodoFormSelector: ".popup__form",
   addTodoCloseBtnSelector: ".popup__close",
   todoTemplateSelector: "#todo-template",
   todosListSelector: ".todos__list"
-}, _defineProperty(_config, "todoTemplateSelector", "#todo-template"), _defineProperty(_config, "todoTemplateSelectors", {
+}, _defineProperty(_todoConfig, "todoTemplateSelector", "#todo-template"), _defineProperty(_todoConfig, "todoTemplateSelectors", {
   todoElementelector: ".todo",
   todoDeleteBtnSelector: ".todo__delete-btn",
   todoNameElSelector: ".todo__name",
   todoCheckboxElSelector: ".todo__completed",
   todoLabelSelector: ".todo__label",
   todoDateSelector: ".todo__date"
-}), _defineProperty(_config, "modalVisibleClass", "popup_visible"), _config);
-exports.config = config;
+}), _defineProperty(_todoConfig, "modalVisibleClass", "popup_visible"), _todoConfig);
+exports.todoConfig = todoConfig;
 var validationConfig = {
   formSelector: ".popup__form",
   inputSelector: ".popup__input",

@@ -1,30 +1,32 @@
 "use strict";
 
+var _uuid = require("https://jspm.dev/uuid");
+
 var _constants = require("../utils/constants.js");
 
 var _Todo = _interopRequireDefault(require("../components/Todo.js"));
 
-var _uuid = require("https://jspm.dev/uuid");
+var _FormValidator = _interopRequireDefault(require("../components/FormValidator.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-var addTodoButton = document.querySelector(_constants.config.addTodoButtonSelector);
-var addTodoPopup = document.querySelector(_constants.config.addTodoPopupSelector);
-var addTodoForm = addTodoPopup.querySelector(_constants.config.addTodoFormSelector);
-var addTodoCloseBtn = addTodoPopup.querySelector(_constants.config.addTodoCloseBtnSelector);
-var todosList = document.querySelector(_constants.config.todosListSelector);
+var addTodoButton = document.querySelector(_constants.todoConfig.addTodoButtonSelector);
+var addTodoPopup = document.querySelector(_constants.todoConfig.addTodoPopupSelector);
+var addTodoForm = addTodoPopup.querySelector(_constants.todoConfig.addTodoFormSelector);
+var addTodoCloseBtn = addTodoPopup.querySelector(_constants.todoConfig.addTodoCloseBtnSelector);
+var todosList = document.querySelector(_constants.todoConfig.todosListSelector);
 
 var openModal = function openModal(modal) {
-  modal.classList.add(_constants.config.modalVisibleClass);
+  modal.classList.add(_constants.todoConfig.modalVisibleClass);
 };
 
 var closeModal = function closeModal(modal) {
-  modal.classList.remove(_constants.config.modalVisibleClass);
+  modal.classList.remove(_constants.todoConfig.modalVisibleClass);
 }; // The logic in this function should all be handled in the Todo class.
 
 
 var generateTodo = function generateTodo(data) {
-  var todo = new _Todo["default"](data, _constants.config.todoTemplateSelector, _constants.config.todoTemplateSelectors);
+  var todo = new _Todo["default"](data, _constants.todoConfig.todoTemplateSelector, _constants.todoConfig.todoTemplateSelectors);
   var todoElement = todo.getView();
   return todoElement;
 };
@@ -59,3 +61,6 @@ _constants.initialTodos.forEach(function (item) {
   var todo = generateTodo(item);
   todosList.append(todo);
 });
+
+var newTodoValidator = new _FormValidator["default"](_constants.validationConfig, addTodoForm);
+newTodoValidator.enableValidation();
