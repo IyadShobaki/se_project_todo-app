@@ -7,7 +7,7 @@ TaskTracker is a lightweight, web-based to-do list application that helps users 
 TaskTracker provides a clean and intuitive interface for managing tasks. On the main page, users can:
 
 - **Add a new to-do**: Enter a description of the task and optionally specify a due date.
-- **View task statistics**: See how many tasks are completed vs. total. The UI shows something like “Showing X out of Y completed.” (To be implemented)
+- **View task statistics**: See how many tasks are completed vs. total. (To be implemented)
 - **Mark tasks as done**: After creating tasks, you can mark them complete (or potentially delete them), which updates the progress count (To be implemented).
 
 ## Technologies & Techniques
