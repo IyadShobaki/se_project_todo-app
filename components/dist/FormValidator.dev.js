@@ -35,13 +35,13 @@ function () {
     value: function resetValidation() {
       var _this = this;
 
+      this._form.reset();
+
       this._inputList.forEach(function (inputElement) {
         _this._hideInputError(inputElement);
       });
 
-      this._buttonElement.classList.add(this._settings.inactiveButtonClass);
-
-      this._buttonElement.disabled = true;
+      this._toggleButtonState();
     }
   }, {
     key: "_setEventListeners",

@@ -24,7 +24,6 @@ const todoConfig = {
   addTodoPopupSelector: "#add-todo-popup",
   addTodoFormSelector: ".popup__form",
   addTodoCloseBtnSelector: ".popup__close",
-  todoTemplateSelector: "#todo-template",
   todosListSelector: ".todos__list",
   todoTemplateSelector: "#todo-template",
   todoTemplateSelectors: {

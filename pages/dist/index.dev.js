@@ -52,16 +52,13 @@ addTodoForm.addEventListener("submit", function (evt) {
     completed: completed,
     date: date
   };
-  var todo = generateTodo(values);
-  todosList.append(todo);
-  evt.target.reset();
+  todosList.append(generateTodo(values));
   newTodoValidator.resetValidation();
   closeModal(addTodoPopup);
 });
 
 _constants.initialTodos.forEach(function (item) {
-  var todo = generateTodo(item);
-  todosList.append(todo);
+  todosList.append(generateTodo(item));
 });
 
 var newTodoValidator = new _FormValidator["default"](_constants.validationConfig, addTodoForm);

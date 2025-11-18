@@ -59,9 +59,9 @@ function () {
     value: function getView() {
       this._element = this._getTemplate();
       this._todoNameEl = this._element.querySelector(this._settings.todoNameElSelector);
-      this._todoDate = this._element.querySelector(this._settings.todoDateSelector);
+      this._todoDateEl = this._element.querySelector(this._settings.todoDateSelector);
       this._todoNameEl.textContent = this._data.name;
-      this._todoDate.textContent = this._getFromattedDate(this._data.date);
+      this._todoDateEl.textContent = this._getFromattedDate(this._data.date);
 
       this._generateCheckboxEl();
 

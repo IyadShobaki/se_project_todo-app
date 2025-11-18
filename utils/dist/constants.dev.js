@@ -4,11 +4,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.validationConfig = exports.todoConfig = exports.initialTodos = void 0;
-
-var _todoConfig;
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 var initialTodos = [{
   id: "7cec7373-681b-49d9-b065-021d61a69d03",
   name: "Read the sprint's theory",
@@ -26,21 +21,23 @@ var initialTodos = [{
   date: new Date()
 }];
 exports.initialTodos = initialTodos;
-var todoConfig = (_todoConfig = {
+var todoConfig = {
   addTodoButtonSelector: ".button_action_add",
   addTodoPopupSelector: "#add-todo-popup",
   addTodoFormSelector: ".popup__form",
   addTodoCloseBtnSelector: ".popup__close",
+  todosListSelector: ".todos__list",
   todoTemplateSelector: "#todo-template",
-  todosListSelector: ".todos__list"
-}, _defineProperty(_todoConfig, "todoTemplateSelector", "#todo-template"), _defineProperty(_todoConfig, "todoTemplateSelectors", {
-  todoElementelector: ".todo",
-  todoDeleteBtnSelector: ".todo__delete-btn",
-  todoNameElSelector: ".todo__name",
-  todoCheckboxElSelector: ".todo__completed",
-  todoLabelSelector: ".todo__label",
-  todoDateSelector: ".todo__date"
-}), _defineProperty(_todoConfig, "modalVisibleClass", "popup_visible"), _todoConfig);
+  todoTemplateSelectors: {
+    todoElementelector: ".todo",
+    todoDeleteBtnSelector: ".todo__delete-btn",
+    todoNameElSelector: ".todo__name",
+    todoCheckboxElSelector: ".todo__completed",
+    todoLabelSelector: ".todo__label",
+    todoDateSelector: ".todo__date"
+  },
+  modalVisibleClass: "popup_visible"
+};
 exports.todoConfig = todoConfig;
 var validationConfig = {
   formSelector: ".popup__form",
