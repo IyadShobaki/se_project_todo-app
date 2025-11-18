@@ -54,6 +54,8 @@ addTodoForm.addEventListener("submit", function (evt) {
   };
   var todo = generateTodo(values);
   todosList.append(todo);
+  evt.target.reset();
+  newTodoValidator.resetValidation();
   closeModal(addTodoPopup);
 });
 

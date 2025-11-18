@@ -31,9 +31,22 @@ function () {
       this._setEventListeners();
     }
   }, {
+    key: "resetValidation",
+    value: function resetValidation() {
+      var _this = this;
+
+      this._inputList.forEach(function (inputElement) {
+        _this._hideInputError(inputElement);
+      });
+
+      this._buttonElement.classList.add(this._settings.inactiveButtonClass);
+
+      this._buttonElement.disabled = true;
+    }
+  }, {
     key: "_setEventListeners",
     value: function _setEventListeners() {
-      var _this = this;
+      var _this2 = this;
 
       this._inputList = Array.from(this._form.querySelectorAll(this._settings.inputSelector));
       this._buttonElement = this._form.querySelector(this._settings.submitButtonSelector);
@@ -42,9 +55,9 @@ function () {
 
       this._inputList.forEach(function (inputElement) {
         inputElement.addEventListener("input", function () {
-          _this._checkInputValidity(inputElement);
+          _this2._checkInputValidity(inputElement);
 
-          _this._toggleButtonState();
+          _this2._toggleButtonState();
         });
       });
     }
