@@ -6,6 +6,7 @@ import {
 } from "../utils/constants.js";
 import Todo from "../components/Todo.js";
 import FormValidator from "../components/FormValidator.js";
+import Section from "../components/Section.js";
 
 const addTodoButton = document.querySelector(todoConfig.addTodoButtonSelector);
 const addTodoPopup = document.querySelector(todoConfig.addTodoPopupSelector);
@@ -13,17 +14,7 @@ const addTodoForm = addTodoPopup.querySelector(todoConfig.addTodoFormSelector);
 const addTodoCloseBtn = addTodoPopup.querySelector(
   todoConfig.addTodoCloseBtnSelector
 );
-const todosList = document.querySelector(todoConfig.todosListSelector);
 
-const openModal = (modal) => {
-  modal.classList.add(todoConfig.modalVisibleClass);
-};
-
-const closeModal = (modal) => {
-  modal.classList.remove(todoConfig.modalVisibleClass);
-};
-
-// The logic in this function should all be handled in the Todo class.
 const generateTodo = (data) => {
   const todo = new Todo(
     data,
@@ -32,6 +23,23 @@ const generateTodo = (data) => {
   );
   const todoElement = todo.getView();
   return todoElement;
+};
+
+const todosList = new Section({
+  items: initialTodos,
+  renderer: (item) => {
+    todosList.addItem(generateTodo(item));
+  },
+  containerSelector: todoConfig.todosListSelector,
+});
+
+todosList.renderItems();
+const openModal = (modal) => {
+  modal.classList.add(todoConfig.modalVisibleClass);
+};
+
+const closeModal = (modal) => {
+  modal.classList.remove(todoConfig.modalVisibleClass);
 };
 
 addTodoButton.addEventListener("click", () => {
@@ -55,13 +63,11 @@ addTodoForm.addEventListener("submit", (evt) => {
   const id = uuidv4();
 
   const values = { id, name, completed, date };
-  todosList.append(generateTodo(values));
+
+  todosList.addItem(generateTodo(values));
+
   newTodoValidator.resetValidation();
   closeModal(addTodoPopup);
-});
-
-initialTodos.forEach((item) => {
-  todosList.append(generateTodo(item));
 });
 
 const newTodoValidator = new FormValidator(validationConfig, addTodoForm);

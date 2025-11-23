@@ -8,13 +8,29 @@ var _Todo = _interopRequireDefault(require("../components/Todo.js"));
 
 var _FormValidator = _interopRequireDefault(require("../components/FormValidator.js"));
 
+var _Section = _interopRequireDefault(require("../components/Section.js"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var addTodoButton = document.querySelector(_constants.todoConfig.addTodoButtonSelector);
 var addTodoPopup = document.querySelector(_constants.todoConfig.addTodoPopupSelector);
 var addTodoForm = addTodoPopup.querySelector(_constants.todoConfig.addTodoFormSelector);
 var addTodoCloseBtn = addTodoPopup.querySelector(_constants.todoConfig.addTodoCloseBtnSelector);
-var todosList = document.querySelector(_constants.todoConfig.todosListSelector);
+
+var generateTodo = function generateTodo(data) {
+  var todo = new _Todo["default"](data, _constants.todoConfig.todoTemplateSelector, _constants.todoConfig.todoTemplateSelectors);
+  var todoElement = todo.getView();
+  return todoElement;
+};
+
+var todosList = new _Section["default"]({
+  items: _constants.initialTodos,
+  renderer: function renderer(item) {
+    todosList.addItem(generateTodo(item));
+  },
+  containerSelector: _constants.todoConfig.todosListSelector
+});
+todosList.renderItems();
 
 var openModal = function openModal(modal) {
   modal.classList.add(_constants.todoConfig.modalVisibleClass);
@@ -22,13 +38,6 @@ var openModal = function openModal(modal) {
 
 var closeModal = function closeModal(modal) {
   modal.classList.remove(_constants.todoConfig.modalVisibleClass);
-}; // The logic in this function should all be handled in the Todo class.
-
-
-var generateTodo = function generateTodo(data) {
-  var todo = new _Todo["default"](data, _constants.todoConfig.todoTemplateSelector, _constants.todoConfig.todoTemplateSelectors);
-  var todoElement = todo.getView();
-  return todoElement;
 };
 
 addTodoButton.addEventListener("click", function () {
@@ -52,14 +61,9 @@ addTodoForm.addEventListener("submit", function (evt) {
     completed: completed,
     date: date
   };
-  todosList.append(generateTodo(values));
+  todosList.addItem(generateTodo(values));
   newTodoValidator.resetValidation();
   closeModal(addTodoPopup);
 });
-
-_constants.initialTodos.forEach(function (item) {
-  todosList.append(generateTodo(item));
-});
-
 var newTodoValidator = new _FormValidator["default"](_constants.validationConfig, addTodoForm);
 newTodoValidator.enableValidation();
