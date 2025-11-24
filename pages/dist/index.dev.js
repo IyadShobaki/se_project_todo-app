@@ -12,15 +12,36 @@ var _Section = _interopRequireDefault(require("../components/Section.js"));
 
 var _PopupWithForm = _interopRequireDefault(require("../components/PopupWithForm.js"));
 
+var _TodoCounter = _interopRequireDefault(require("../components/TodoCounter.js"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var addTodoButton = document.querySelector(_constants.todoConfig.addTodoButtonSelector);
 var addTodoPopup = document.querySelector(_constants.todoConfig.addTodoPopupSelector);
 var addTodoForm = addTodoPopup.querySelector(_constants.todoConfig.addTodoFormSelector);
 var newTodoValidator = new _FormValidator["default"](_constants.validationConfig, addTodoForm);
+var todoCounter = new _TodoCounter["default"]({
+  todos: _constants.initialTodos,
+  selector: ".counter__text"
+});
+
+function handleCheck(completed) {
+  todoCounter.updateCompleted(completed);
+}
+
+function handleDelete(completed) {
+  if (completed) todoCounter.updateCompleted(false);
+  todoCounter.updateTotal(false);
+}
 
 var generateTodo = function generateTodo(data) {
-  var todo = new _Todo["default"](data, _constants.todoConfig.todoTemplateSelector, _constants.todoConfig.todoTemplateSelectors);
+  var todo = new _Todo["default"]({
+    data: data,
+    selector: _constants.todoConfig.todoTemplateSelector,
+    settings: _constants.todoConfig.todoTemplateSelectors,
+    handleCheck: handleCheck,
+    handleDelete: handleDelete
+  });
   var todoElement = todo.getView();
   return todoElement;
 };
@@ -55,6 +76,7 @@ var addTodoPopupForm = new _PopupWithForm["default"]({
   formSettings: _constants.todoConfig,
   handleFormSubmit: function handleFormSubmit(inputValues) {
     todosList.addItem(generateTodo(extractTodoValues(inputValues)));
+    todoCounter.updateTotal(true);
     newTodoValidator.resetValidation();
   }
 });

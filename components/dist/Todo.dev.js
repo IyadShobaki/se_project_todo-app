@@ -14,12 +14,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 var Todo =
 /*#__PURE__*/
 function () {
-  function Todo(data, selector, settings) {
+  function Todo(_ref) {
+    var data = _ref.data,
+        selector = _ref.selector,
+        settings = _ref.settings,
+        handleCheck = _ref.handleCheck;
+
     _classCallCheck(this, Todo);
 
     this._data = data;
     this._templateElement = document.querySelector(selector);
     this._settings = settings;
+    this._handleCheck = handleCheck;
   }
 
   _createClass(Todo, [{
