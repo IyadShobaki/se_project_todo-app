@@ -20,9 +20,6 @@ const initialTodos = [
 ];
 
 const todoConfig = {
-  popupVisibleClass: "popup_visible",
-  popupClass: "popup",
-  addTodoCloseBtnClass: "popup__close",
   addTodoButtonSelector: ".button_action_add",
   addTodoPopupSelector: "#add-todo-popup",
   addTodoFormSelector: ".popup__form",

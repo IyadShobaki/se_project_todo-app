@@ -36,26 +36,21 @@ var PopupWithForm =
 function (_Popup) {
   _inherits(PopupWithForm, _Popup);
 
-  function PopupWithForm(_ref) {
+  function PopupWithForm(popupSelector, handleFormSubmit) {
     var _this;
-
-    var formSettings = _ref.formSettings,
-        handleFormSubmit = _ref.handleFormSubmit;
 
     _classCallCheck(this, PopupWithForm);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(PopupWithForm).call(this, {
-      popupSettings: formSettings
-    }));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(PopupWithForm).call(this, popupSelector));
     _this._handleFormSubmit = handleFormSubmit;
-    _this._popupForm = _this._element.querySelector(_this._popupSettings.addTodoFormSelector);
+    _this._popupForm = _this._element.querySelector(".popup__form");
     return _this;
   }
 
   _createClass(PopupWithForm, [{
     key: "_getInputValues",
     value: function _getInputValues() {
-      this._inputList = this._popupForm.querySelectorAll(this._popupSettings.addTodoInputSelector);
+      this._inputList = this._popupForm.querySelectorAll(".popup__input");
       var values = {};
 
       this._inputList.forEach(function (input) {
@@ -72,6 +67,7 @@ function (_Popup) {
       _get(_getPrototypeOf(PopupWithForm.prototype), "setEventListeners", this).call(this);
 
       this._popupForm.addEventListener("submit", function (evt) {
+        if (!_this2._popupForm.checkValidity()) return;
         evt.preventDefault();
 
         _this2._handleFormSubmit(_this2._getInputValues());

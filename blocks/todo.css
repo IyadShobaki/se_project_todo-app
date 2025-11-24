@@ -73,7 +73,9 @@
 .todo__delete-btn::before {
   content: "Delete";
 }
-
+.todo__delete-btn:hover {
+  opacity: 0.6;
+}
 @media screen and (max-width: 630px) {
   .todo__label {
     display: grid;

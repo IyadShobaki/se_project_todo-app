@@ -43,13 +43,13 @@ var generateTodo = function generateTodo(data) {
     handleDelete: handleDelete
   });
   var todoElement = todo.getView();
-  return todoElement;
+  todosList.addItem(todoElement);
 };
 
 var todosList = new _Section["default"]({
   items: _constants.initialTodos,
   renderer: function renderer(item) {
-    todosList.addItem(generateTodo(item));
+    generateTodo(item);
   },
   containerSelector: _constants.todoConfig.todosListSelector
 });
@@ -72,13 +72,10 @@ var extractTodoValues = function extractTodoValues(inputValues) {
   return todoValues;
 };
 
-var addTodoPopupForm = new _PopupWithForm["default"]({
-  formSettings: _constants.todoConfig,
-  handleFormSubmit: function handleFormSubmit(inputValues) {
-    todosList.addItem(generateTodo(extractTodoValues(inputValues)));
-    todoCounter.updateTotal(true);
-    newTodoValidator.resetValidation();
-  }
+var addTodoPopupForm = new _PopupWithForm["default"](_constants.todoConfig.addTodoPopupSelector, function (inputValues) {
+  generateTodo(extractTodoValues(inputValues));
+  todoCounter.updateTotal(true);
+  newTodoValidator.resetValidation();
 });
 addTodoButton.addEventListener("click", function () {
   addTodoPopupForm.open();

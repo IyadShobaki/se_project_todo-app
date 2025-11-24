@@ -39,13 +39,13 @@ const generateTodo = (data) => {
   });
   const todoElement = todo.getView();
 
-  return todoElement;
+  todosList.addItem(todoElement);
 };
 
 const todosList = new Section({
   items: initialTodos,
   renderer: (item) => {
-    todosList.addItem(generateTodo(item));
+    generateTodo(item);
   },
   containerSelector: todoConfig.todosListSelector,
 });
@@ -68,14 +68,14 @@ const extractTodoValues = (inputValues) => {
   return todoValues;
 };
 
-const addTodoPopupForm = new PopupWithForm({
-  formSettings: todoConfig,
-  handleFormSubmit: (inputValues) => {
-    todosList.addItem(generateTodo(extractTodoValues(inputValues)));
+const addTodoPopupForm = new PopupWithForm(
+  todoConfig.addTodoPopupSelector,
+  (inputValues) => {
+    generateTodo(extractTodoValues(inputValues));
     todoCounter.updateTotal(true);
     newTodoValidator.resetValidation();
-  },
-});
+  }
+);
 
 addTodoButton.addEventListener("click", () => {
   addTodoPopupForm.open();

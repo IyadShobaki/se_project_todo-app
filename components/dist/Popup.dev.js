@@ -14,27 +14,24 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 var Popup =
 /*#__PURE__*/
 function () {
-  function Popup(_ref) {
-    var popupSettings = _ref.popupSettings;
-
+  function Popup(popupSelector) {
     _classCallCheck(this, Popup);
 
-    this._popupSettings = popupSettings;
-    this._element = document.querySelector(this._popupSettings.addTodoPopupSelector);
+    this._element = document.querySelector(popupSelector);
     this._handleEscapeClose = this._handleEscapeClose.bind(this);
   }
 
   _createClass(Popup, [{
     key: "open",
     value: function open() {
-      this._element.classList.add(this._popupSettings.popupVisibleClass);
+      this._element.classList.add("popup_visible");
 
       document.addEventListener("keyup", this._handleEscapeClose);
     }
   }, {
     key: "close",
     value: function close() {
-      this._element.classList.remove(this._popupSettings.popupVisibleClass);
+      this._element.classList.remove("popup_visible");
 
       document.removeEventListener("keyup", this._handleEscapeClose);
     }
@@ -51,7 +48,7 @@ function () {
       var _this = this;
 
       this._element.addEventListener("mousedown", function (evt) {
-        if (evt.target.classList.contains(_this._popupSettings.popupClass) || evt.target.classList.contains(_this._popupSettings.addTodoCloseBtnClass)) {
+        if (evt.target.classList.contains("popup") || evt.target.classList.contains("popup__close")) {
           _this.close();
         }
       });
