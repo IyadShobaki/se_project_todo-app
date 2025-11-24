@@ -10,12 +10,14 @@ var _FormValidator = _interopRequireDefault(require("../components/FormValidator
 
 var _Section = _interopRequireDefault(require("../components/Section.js"));
 
+var _PopupWithForm = _interopRequireDefault(require("../components/PopupWithForm.js"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var addTodoButton = document.querySelector(_constants.todoConfig.addTodoButtonSelector);
 var addTodoPopup = document.querySelector(_constants.todoConfig.addTodoPopupSelector);
 var addTodoForm = addTodoPopup.querySelector(_constants.todoConfig.addTodoFormSelector);
-var addTodoCloseBtn = addTodoPopup.querySelector(_constants.todoConfig.addTodoCloseBtnSelector);
+var newTodoValidator = new _FormValidator["default"](_constants.validationConfig, addTodoForm);
 
 var generateTodo = function generateTodo(data) {
   var todo = new _Todo["default"](data, _constants.todoConfig.todoTemplateSelector, _constants.todoConfig.todoTemplateSelectors);
@@ -32,38 +34,32 @@ var todosList = new _Section["default"]({
 });
 todosList.renderItems();
 
-var openModal = function openModal(modal) {
-  modal.classList.add(_constants.todoConfig.modalVisibleClass);
-};
-
-var closeModal = function closeModal(modal) {
-  modal.classList.remove(_constants.todoConfig.modalVisibleClass);
-};
-
-addTodoButton.addEventListener("click", function () {
-  openModal(addTodoPopup);
-});
-addTodoCloseBtn.addEventListener("click", function () {
-  closeModal(addTodoPopup);
-});
-addTodoForm.addEventListener("submit", function (evt) {
-  evt.preventDefault();
-  var name = evt.target.name.value;
-  var dateInput = evt.target.date.value; // Create a date object and adjust for timezone
+var extractTodoValues = function extractTodoValues(inputValues) {
+  var name = inputValues.name;
+  var dateInput = inputValues.date; // Create a date object and adjust for timezone
 
   var date = new Date(dateInput);
   date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
   var completed = false;
   var id = (0, _uuid.v4)();
-  var values = {
+  var todoValues = {
     id: id,
     name: name,
     completed: completed,
     date: date
   };
-  todosList.addItem(generateTodo(values));
-  newTodoValidator.resetValidation();
-  closeModal(addTodoPopup);
+  return todoValues;
+};
+
+var addTodoPopupForm = new _PopupWithForm["default"]({
+  formSettings: _constants.todoConfig,
+  handleFormSubmit: function handleFormSubmit(inputValues) {
+    todosList.addItem(generateTodo(extractTodoValues(inputValues)));
+    newTodoValidator.resetValidation();
+  }
 });
-var newTodoValidator = new _FormValidator["default"](_constants.validationConfig, addTodoForm);
+addTodoButton.addEventListener("click", function () {
+  addTodoPopupForm.open();
+});
+addTodoPopupForm.setEventListeners();
 newTodoValidator.enableValidation();

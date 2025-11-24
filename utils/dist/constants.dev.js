@@ -22,9 +22,13 @@ var initialTodos = [{
 }];
 exports.initialTodos = initialTodos;
 var todoConfig = {
+  popupVisibleClass: "popup_visible",
+  popupClass: "popup",
+  addTodoCloseBtnClass: "popup__close",
   addTodoButtonSelector: ".button_action_add",
   addTodoPopupSelector: "#add-todo-popup",
   addTodoFormSelector: ".popup__form",
+  addTodoInputSelector: ".popup__input",
   addTodoCloseBtnSelector: ".popup__close",
   todosListSelector: ".todos__list",
   todoTemplateSelector: "#todo-template",
@@ -35,8 +39,7 @@ var todoConfig = {
     todoCheckboxElSelector: ".todo__completed",
     todoLabelSelector: ".todo__label",
     todoDateSelector: ".todo__date"
-  },
-  modalVisibleClass: "popup_visible"
+  }
 };
 exports.todoConfig = todoConfig;
 var validationConfig = {

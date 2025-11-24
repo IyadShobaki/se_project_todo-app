@@ -7,13 +7,13 @@ import {
 import Todo from "../components/Todo.js";
 import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
+import PopupWithForm from "../components/PopupWithForm.js";
 
 const addTodoButton = document.querySelector(todoConfig.addTodoButtonSelector);
 const addTodoPopup = document.querySelector(todoConfig.addTodoPopupSelector);
 const addTodoForm = addTodoPopup.querySelector(todoConfig.addTodoFormSelector);
-const addTodoCloseBtn = addTodoPopup.querySelector(
-  todoConfig.addTodoCloseBtnSelector
-);
+
+const newTodoValidator = new FormValidator(validationConfig, addTodoForm);
 
 const generateTodo = (data) => {
   const todo = new Todo(
@@ -34,26 +34,10 @@ const todosList = new Section({
 });
 
 todosList.renderItems();
-const openModal = (modal) => {
-  modal.classList.add(todoConfig.modalVisibleClass);
-};
 
-const closeModal = (modal) => {
-  modal.classList.remove(todoConfig.modalVisibleClass);
-};
-
-addTodoButton.addEventListener("click", () => {
-  openModal(addTodoPopup);
-});
-
-addTodoCloseBtn.addEventListener("click", () => {
-  closeModal(addTodoPopup);
-});
-
-addTodoForm.addEventListener("submit", (evt) => {
-  evt.preventDefault();
-  const name = evt.target.name.value;
-  const dateInput = evt.target.date.value;
+const extractTodoValues = (inputValues) => {
+  const name = inputValues.name;
+  const dateInput = inputValues.date;
 
   // Create a date object and adjust for timezone
   const date = new Date(dateInput);
@@ -62,13 +46,23 @@ addTodoForm.addEventListener("submit", (evt) => {
   const completed = false;
   const id = uuidv4();
 
-  const values = { id, name, completed, date };
+  const todoValues = { id, name, completed, date };
 
-  todosList.addItem(generateTodo(values));
+  return todoValues;
+};
 
-  newTodoValidator.resetValidation();
-  closeModal(addTodoPopup);
+const addTodoPopupForm = new PopupWithForm({
+  formSettings: todoConfig,
+  handleFormSubmit: (inputValues) => {
+    todosList.addItem(generateTodo(extractTodoValues(inputValues)));
+    newTodoValidator.resetValidation();
+  },
 });
 
-const newTodoValidator = new FormValidator(validationConfig, addTodoForm);
+addTodoButton.addEventListener("click", () => {
+  addTodoPopupForm.open();
+});
+
+addTodoPopupForm.setEventListeners();
+
 newTodoValidator.enableValidation();
