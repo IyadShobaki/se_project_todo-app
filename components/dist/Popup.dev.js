@@ -21,6 +21,7 @@ function () {
 
     this._popupSettings = popupSettings;
     this._element = document.querySelector(this._popupSettings.addTodoPopupSelector);
+    this._handleEscapeClose = this._handleEscapeClose.bind(this);
   }
 
   _createClass(Popup, [{

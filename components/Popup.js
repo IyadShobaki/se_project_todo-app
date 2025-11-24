@@ -4,6 +4,7 @@ class Popup {
     this._element = document.querySelector(
       this._popupSettings.addTodoPopupSelector
     );
+    this._handleEscapeClose = this._handleEscapeClose.bind(this);
   }
 
   open() {
