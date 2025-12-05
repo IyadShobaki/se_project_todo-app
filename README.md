@@ -1,6 +1,6 @@
 # Simple Todo App
 
-TaskTracker is a lightweight, web-based to-do list application that helps users create, organize, and manage tasks easily.
+The To‑Do App was created to practice advanced JavaScript concepts and build a lightweight task management tool. The goal was to implement object-oriented programming techniques, modular code structure, and clean UI interactions, while providing users a simple way to organize tasks.
 
 ## Functionality
 
@@ -10,11 +10,14 @@ TaskTracker provides a clean and intuitive interface for managing tasks. On the 
 - **View task statistics**: See how many tasks are completed vs. total. (To be implemented)
 - **Mark tasks as done**: After creating tasks, you can mark them complete (or potentially delete them), which updates the progress count (To be implemented).
 
-## Technologies & Techniques
+## Technologies & Techniques Learned
 
-- **HTML**: For the page structure — form input, headings, task list.
-- **CSS**: For the layout and responsive design.
-- **JavaScript**: To handle adding tasks, marking them as complete, updating the DOM dynamically, and managing task state.
+- Languages:
+  - **HTML**: For the page structure — form input, headings, task list.
+  - **CSS**: For the layout and responsive design.
+  - **JavaScript**: To handle adding tasks, marking them as complete, updating the DOM dynamically, and managing task state.
+- Concepts: Classes, modular JavaScript, destructuring syntax, interface-like OOP patterns
+- UI Features: Adding, completing, and removing tasks with responsive design
 
 ## Future Enhancements
 
